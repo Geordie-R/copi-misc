@@ -14,3 +14,11 @@ Your Node Becomes Invisible – Other blockchain nodes can't reach yours because
 # Solution?
 To host a blockchain node successfully, you need a way for other devices to connect to you:
 Get a real public IP (ask your ISP for a static or dynamic public IP), or, use a VPS from contabo, oneprovider,leaseweb etc
+
+## How do I check for CGNat easily?
+
+### On Ubuntu
+
+
+
+### On Windows
