@@ -26,5 +26,19 @@ chmod +x CGNAT.sh
 ./CGNAT.sh
 ```
 
-
+```
 ### On Windows
+# Define the GitHub raw file URL
+$githubUrl = "https://raw.githubusercontent.com/Geordie-R/copi-misc/refs/heads/main/CGNAT.ps1"
+# Get the Windows temp folder path
+$tempFolder = [System.IO.Path]::GetTempPath()
+
+# Define the local filename in temp
+$localFile = "$tempFolder\CGNAT.ps1"
+
+# Download the GitHub file
+Invoke-WebRequest -Uri $githubUrl -OutFile $localFile
+
+# Execute the downloaded script
+& $localFile
+```
