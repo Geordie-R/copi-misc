@@ -25,10 +25,9 @@ wget -O CGNAT.sh https://raw.githubusercontent.com/Geordie-R/copi-misc/refs/head
 chmod +x CGNAT.sh
 ./CGNAT.sh
 ```
-
+### On Windows (Powershell)
 ```
 
-### On Windows (Powershell)
 # Define the GitHub raw file URL
 $githubUrl = "https://raw.githubusercontent.com/Geordie-R/copi-misc/refs/heads/main/CGNAT.ps1"
 # Get the Windows temp folder path
