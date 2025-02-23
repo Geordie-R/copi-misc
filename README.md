@@ -19,6 +19,12 @@ Get a real public IP (ask your ISP for a static or dynamic public IP), or, use a
 
 ### On Ubuntu
 
+```
+rm -rf CGNAT.sh
+wget -O CGNAT.sh https://raw.githubusercontent.com/Geordie-R/copi-misc/refs/heads/main/CGNAT.sh
+chmod +x CGNAT.sh
+./CGNAT.sh
+```
 
 
 ### On Windows
