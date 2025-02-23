@@ -27,7 +27,8 @@ chmod +x CGNAT.sh
 ```
 
 ```
-### On Windows
+
+### On Windows (Powershell)
 # Define the GitHub raw file URL
 $githubUrl = "https://raw.githubusercontent.com/Geordie-R/copi-misc/refs/heads/main/CGNAT.ps1"
 # Get the Windows temp folder path
