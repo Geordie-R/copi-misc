@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "Checking if your ISP is using CGNAT..."
 # Get the current WAN IP
 wan_ip=$(curl -s ifconfig.me)
 echo "Checking The IP: $wan_ip"
