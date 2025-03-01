@@ -1,4 +1,29 @@
 
+# Get the current public IP
+try {
+    $publicIP = ((Invoke-WebRequest ifconfig.me/ip).Content.Trim())
+} catch {
+    Write-Output "Error fetching public IP. Check your internet connection."
+    exit 1
+}
+
+function Get-TracertHops {
+    # Run tracert and capture the output
+    $traceroute_output = tracert -d $wan_ip
+    # Count the number of hops, excluding the first line
+    $hop_count = ($traceroute_output | Select-Object -Skip 1).Count
+    return $hop_count
+}
+
+# Get the number of hops
+$hops = Get-TracertHops
+
+# Check the number of hops and return appropriate message
+if ($hops -eq 1) {
+    Write-Output "You're good"
+} else {
+    Write-Output "There were $hops hops detected. Possible CGNAT. Seek advice."
+}
 
 
 function Convert-IPToInt {
@@ -20,20 +45,11 @@ function Is-CGNATIP {
 
     if ($ipInt -ge $cgnatStart -and $ipInt -le $cgnatEnd) {
         Write-Output "Yes, $ip is within the CGNAT range (100.64.0.0/10). This will be a problem hosting a node."
-    } else {
-        Write-Output "You're good! Your IP $ip is NOT within the CGNAT range."
     }
 }
 
 
 
-# Get the current public IP
-try {
-    $publicIP = ((Invoke-WebRequest ifconfig.me/ip).Content.Trim())
-} catch {
-    Write-Output "Error fetching public IP. Check your internet connection."
-    exit 1
-}
 
 # Check if it's in the CGNAT range
 Write-Output "Checking IP: $publicIP"
