@@ -3,7 +3,7 @@
 echo "Checking if your ISP is using CGNAT..."
 # Get the current WAN IP
 wan_ip=$(curl -s ifconfig.me)
-
+echo "Checking The IP: $wan_ip"
 GetTracertHops() {
     traceroute_output=$(traceroute $wan_ip)
     hop_count=$(echo "$traceroute_output" | tail -n +2 | wc -l)
@@ -12,12 +12,14 @@ GetTracertHops() {
 
 hops=$(GetTracertHops)
 
+echo "########## Checking for CGNAT ##########"
+
 if [ "$hops" -eq 1 ]; then
-    echo "You're good"
+    echo "You're good. CGNAT not detected"
 else
     echo "There were $hops hops detected. Possible CGNAT. Seek advice."
 fi
-
+echo "########################################"
 
 # Function to check if an IP is in the CGNAT range (100.64.0.0/10)
 is_cgnat_ip() {
