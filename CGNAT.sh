@@ -1,6 +1,23 @@
 #!/bin/bash
 
 echo "Checking if your ISP is using CGNAT..."
+# Get the current WAN IP
+wan_ip=$(curl -s ifconfig.me)
+
+GetTracertHops() {
+    traceroute_output=$(traceroute $wan_ip)
+    hop_count=$(echo "$traceroute_output" | tail -n +2 | wc -l)
+    echo "$hop_count"
+}
+
+hops=$(GetTracertHops)
+
+if [ "$hops" -eq 1 ]; then
+    echo "You're good"
+else
+    echo "There were $hops hops detected. Possible CGNAT. Seek advice."
+fi
+
 
 # Function to check if an IP is in the CGNAT range (100.64.0.0/10)
 is_cgnat_ip() {
@@ -14,15 +31,7 @@ is_cgnat_ip() {
     cgnat_end=1686110207    # 100.127.255.255
 
     if [[ "$ip_int" -ge "$cgnat_start" && "$ip_int" -le "$cgnat_end" ]]; then
-        echo "Yes, $ip is within the CGNAT range (100.64.0.0/10). This will be a problem hosting a node."
-    else
-        echo "You're good your IP $ip is NOT within the CGNAT range."
+        echo "Your IP $wan_ip is within a typical CGNAT range (100.64.0.0/10)."
     fi
 }
-
-# Get the current WAN IP
-wan_ip=$(curl -s ifconfig.me)
-
-# Check if it's in the CGNAT range
-echo "Checking your WAN IP: $wan_ip"
 is_cgnat_ip "$wan_ip"
